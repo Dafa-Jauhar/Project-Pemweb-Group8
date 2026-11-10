@@ -7,6 +7,11 @@
     <title>Footer</title>
 </head>
 <body>
-    
+    <footer class="website-footer">
+        <div class="footer-container">
+            <p>&copy; <?php echo date('Y'); ?> ReMeDiVe &bull; V1.0</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

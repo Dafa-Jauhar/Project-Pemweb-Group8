@@ -1,46 +1,43 @@
-<?php
-    $menu_items = [
-        'index.php' => 'Beranda',
-        'about.php' => 'Tentang Kami',
-    ];
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Header</title>
+    <title>ReMeDiVe</title>
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-container">
-
-            <!-- Logo plus nama di sini yakkkkk -->
-            <div class="logo-container">
-                <a href="index.php" class="logo">
-                    <img src="assets/image/RedCross.png" alt="Red Cross" class="logo-img">
+    <header class="website-header">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.php">
+                    <img src="assets/image/RedCross.png" alt="ReMeDiVe" class="logo-icon">
+                    <span>ReMeDiVe</span>
                 </a>
-                <div class="web-name">
-                    <span>REMEDIVE (Rekam Medis Digital Veteran)</span>
-                    <span>Klinik UPN "Veteran" Yogyakarta</span>
-                </div>
             </div>
 
-            <!-- Menu navigasi di sini yhh -->
             <nav class="nav-menu">
-                <ul>
-                    <?php foreach($menu_items as $url => $label): ?>
-                    <li>
-                        <a href="<?= $url; ?>" class="<?= (isset($page) && $page == $url) ? 'active' : ''; ?>">
-                            <?= $label; ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
+                <?php
+                    if (isset($_SESSION['UserID'])){
+                        if ($_SESSION['Role'] === 'patient'){
+                            ?>
+                            <a href="patient_dashboard.php">Dashboard</a>
+                            <a href="patient_records.php">Rekam Medis</a>
+                            <a href="patient_profile.php">Profil Saya</a>
+                            <?php
+                        } else if ($_SESSION['Role'] === 'doctor'){
+                            ?>
+                            <a href="doctor_dashboard.php">Dashboard</a>
+                            <a href="doctor_patients.php">Rekam Medis</a>
+                            <a href="doctor_schedule.php">Jadwal Praktik</a>
+                            <?php
+                        } ?>
+                        <span class="user-greeting">Halo, <strong><?php echo htmlspecialchars($_SESSION['UserName']); ?></strong></span>
+                        <a href="logout.php" class="btn-logout">Logout</a>
+                        <?php
+                    }
+                ?> 
             </nav>
-
         </div>
     </header>
 </body>

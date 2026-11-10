@@ -1,0 +1,21 @@
+*Disclaimer: 
+Changelog information based on Git Repository Commit.
+Change in project separated into 3 category (ADDED, UPDATE, DELETE).
+Timestamp margin of error +- 2 minutes.
+===============================================================================================================
+
+7 November 2026:
+- UPDATE adding more data to rumah_sakit_web.sql (Dafa) [20.03 WIB]
+- UPDATE adding information to README.md (Dafa) [20.04 WIB]
+- UPDATE adding session check to connection.php, coding header.php and footer.php, simple logo sizing in style.css, adding information to README.md (Radit) [22.40]
+- ADDED changelog.txt (Radit) [22.40]
+
+6 November 2026:
+- ADDED sql database rumah_sakit_web.sql, file koneksi.php (Dafa) []
+- UPDATE adding basic design requirement to header.php (Radit) []
+- ADDED file style.css, RedCross.png (Radit) []
+- DELETE file koneksi.php for redundancy (Radit) []
+
+5 November 2026:
+- ADDED README.md & Initial Commit (Dafa) []
+- ADDED file connection.php, header.php, footer.php, index.php (Radit) []

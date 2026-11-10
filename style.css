@@ -1,53 +1,12 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Container Header */
-.main-header {
-    background-color: white;
-    border-bottom: 1px solid white;
-    padding: 15px 40px;
-}
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Logo + Name */
-.logo {
+.logo a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
 }
-.logo-img {
-    height: 50px;
+
+.logo-icon {
+    height: 25px;
     width: auto;
-    display: block;
-}
-.web-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    line-height: 1;
-}
-.web-name span {
-    font-size: 12pt;
-}
-
-/* Navigation Menu */
-.nav-menu ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-    align-items: center;
-}
-.nav-menu ul li a {
-    text-decoration: none;
+    object-fit: contain;
 }
