@@ -3,11 +3,13 @@ Changelog information based on Git Repository Commit.
 Change in project separated into 3 category (ADDED, UPDATE, DELETE).
 Timestamp margin of error +- 2 minutes.
 ===============================================================================================================
+11 November 2026:
+- UPDATE adding structure database for appointment system and forum chat (Dafa in Meisha's account) [09.54 WIB]
 
 7 November 2026:
 - UPDATE adding more data to rumah_sakit_web.sql (Dafa) [20.03 WIB]
 - UPDATE adding information to README.md (Dafa) [20.04 WIB]
-- UPDATE adding session check to connection.php, coding header.php and footer.php, simple logo sizing in style.css, adding information to README.md (Radit) [22.40]
+- UPDATE adding session check to connection.php, coding header.php and footer.php, simple logo sizing in style.css, adding information to README.md (Radit) [22.40 WIB]
 - ADDED changelog.txt (Radit) [22.40]
 
 6 November 2026:
