@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2026 at 02:01 PM
+-- Generation Time: Nov 11, 2026 at 03:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `rumah_sakit_web`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_connect`
+--
+
+CREATE TABLE `chat_connect` (
+  `ConnectID` int(11) NOT NULL,
+  `ChatDID` int(11) DEFAULT NULL,
+  `ChatPID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -62,6 +74,19 @@ INSERT INTO `doctors` (`DoctorID`, `DoctorName`, `Speciality`, `PhoneNumber`, `E
 (18, 'dr. Alya Wijaya', 'THT', '081210000018', 'doctor018@rssehat.test', 'REG-2026-00018', 19),
 (19, 'dr. Bagas Lestari', 'Kulit', '081210000019', 'doctor019@rssehat.test', 'REG-2026-00019', 20),
 (20, 'dr. Dimas Hidayat', 'Saraf', '081210000020', 'doctor020@rssehat.test', 'REG-2026-00020', 21);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctor_chat`
+--
+
+CREATE TABLE `doctor_chat` (
+  `ChatDID` int(11) NOT NULL,
+  `UserID` int(11) DEFAULT NULL,
+  `Chat` text DEFAULT NULL,
+  `Time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -140,114 +165,115 @@ CREATE TABLE `medical_examinations` (
   `pulse` smallint(6) DEFAULT NULL,
   `temperature` decimal(4,1) DEFAULT NULL,
   `WeightKg` decimal(10,0) DEFAULT NULL,
-  `HeightCm` decimal(10,0) DEFAULT NULL
+  `HeightCm` decimal(10,0) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medical_examinations`
 --
 
-INSERT INTO `medical_examinations` (`ExamID`, `DoctorID`, `PatientID`, `Examination_date`, `Diagnosis`, `examResult`, `mainIssues`, `action`, `notes`, `BloodPressureSistolik`, `BloodPressureDiastolik`, `pulse`, `temperature`, `WeightKg`, `HeightCm`) VALUES
-(1, 1, 7, '2026-01-05 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 75, 36.4, 48, 149),
-(2, 2, 14, '2026-01-06 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 82, 36.7, 51, 153),
-(3, 3, 21, '2026-01-07 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 89, 37.0, 54, 157),
-(4, 4, 28, '2026-01-08 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 96, 37.4, 57, 161),
-(5, 5, 35, '2026-01-09 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 72, 37.8, 60, 165),
-(6, 6, 42, '2026-01-10 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 79, 38.1, 63, 169),
-(7, 7, 49, '2026-01-11 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 86, 36.4, 66, 173),
-(8, 8, 56, '2026-01-12 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 93, 36.7, 69, 177),
-(9, 9, 63, '2026-01-13 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 69, 37.0, 72, 181),
-(10, 10, 70, '2026-01-14 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 76, 37.4, 75, 185),
-(11, 11, 7, '2026-01-15 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 132, 70, 83, 37.8, 78, 189),
-(12, 12, 14, '2026-01-16 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 139, 75, 90, 38.1, 81, 148),
-(13, 13, 21, '2026-01-17 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 101, 80, 97, 36.4, 84, 152),
-(14, 14, 28, '2026-01-18 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 108, 85, 73, 36.7, 87, 156),
-(15, 15, 35, '2026-01-19 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 115, 65, 80, 37.0, 90, 160),
-(16, 16, 42, '2026-01-20 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 122, 70, 87, 37.4, 93, 164),
-(17, 17, 49, '2026-01-21 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 129, 75, 94, 37.8, 46, 168),
-(18, 18, 56, '2026-01-22 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 136, 80, 70, 38.1, 49, 172),
-(19, 19, 63, '2026-01-23 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 143, 85, 77, 36.4, 52, 176),
-(20, 20, 70, '2026-01-24 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 105, 65, 84, 36.7, 55, 180),
-(21, 1, 7, '2026-01-25 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 112, 70, 91, 37.0, 58, 184),
-(22, 2, 14, '2026-01-26 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 119, 75, 98, 37.4, 61, 188),
-(23, 3, 21, '2026-01-27 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 126, 80, 74, 37.8, 64, 147),
-(24, 4, 28, '2026-01-28 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 133, 85, 81, 38.1, 67, 151),
-(25, 5, 35, '2026-01-29 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 140, 65, 88, 36.4, 70, 155),
-(26, 6, 42, '2026-01-30 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 102, 70, 95, 36.7, 73, 159),
-(27, 7, 49, '2026-01-31 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 109, 75, 71, 37.0, 76, 163),
-(28, 8, 56, '2026-02-01 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 116, 80, 78, 37.4, 79, 167),
-(29, 9, 63, '2026-02-02 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 123, 85, 85, 37.8, 82, 171),
-(30, 10, 70, '2026-02-03 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 130, 65, 92, 38.1, 85, 175),
-(31, 11, 7, '2026-02-04 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 137, 70, 68, 36.4, 88, 179),
-(32, 12, 14, '2026-02-05 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 144, 75, 75, 36.7, 91, 183),
-(33, 13, 21, '2026-02-06 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 106, 80, 82, 37.0, 94, 187),
-(34, 14, 28, '2026-02-07 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 113, 85, 89, 37.4, 47, 146),
-(35, 15, 35, '2026-02-08 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 120, 65, 96, 37.8, 50, 150),
-(36, 16, 42, '2026-02-09 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 127, 70, 72, 38.1, 53, 154),
-(37, 17, 49, '2026-02-10 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 134, 75, 79, 36.4, 56, 158),
-(38, 18, 56, '2026-02-11 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 141, 80, 86, 36.7, 59, 162),
-(39, 19, 63, '2026-02-12 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 103, 85, 93, 37.0, 62, 166),
-(40, 20, 70, '2026-02-13 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 110, 65, 69, 37.4, 65, 170),
-(41, 1, 7, '2026-02-14 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 117, 70, 76, 37.8, 68, 174),
-(42, 2, 14, '2026-02-15 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 124, 75, 83, 38.1, 71, 178),
-(43, 3, 21, '2026-02-16 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 131, 80, 90, 36.4, 74, 182),
-(44, 4, 28, '2026-02-17 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 138, 85, 97, 36.7, 77, 186),
-(45, 5, 35, '2026-02-18 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 100, 65, 73, 37.0, 80, 145),
-(46, 6, 42, '2026-02-19 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 80, 37.4, 83, 149),
-(47, 7, 49, '2026-02-20 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 87, 37.8, 86, 153),
-(48, 8, 56, '2026-02-21 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 94, 38.1, 89, 157),
-(49, 9, 63, '2026-02-22 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 70, 36.4, 92, 161),
-(50, 10, 70, '2026-02-23 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 77, 36.7, 45, 165),
-(51, 11, 7, '2026-02-24 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 84, 37.0, 48, 169),
-(52, 12, 14, '2026-02-25 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 91, 37.4, 51, 173),
-(53, 13, 21, '2026-02-26 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 98, 37.8, 54, 177),
-(54, 14, 28, '2026-02-27 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 74, 38.1, 57, 181),
-(55, 15, 35, '2026-02-28 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 81, 36.4, 60, 185),
-(56, 16, 42, '2026-03-01 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 132, 70, 88, 36.7, 63, 189),
-(57, 17, 49, '2026-03-02 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 139, 75, 95, 37.0, 66, 148),
-(58, 18, 56, '2026-03-03 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 101, 80, 71, 37.4, 69, 152),
-(59, 19, 63, '2026-03-04 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 108, 85, 78, 37.8, 72, 156),
-(60, 20, 70, '2026-03-05 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 115, 65, 85, 38.1, 75, 160),
-(61, 1, 7, '2026-03-06 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 122, 70, 92, 36.4, 78, 164),
-(62, 2, 14, '2026-03-07 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 129, 75, 68, 36.7, 81, 168),
-(63, 3, 21, '2026-03-08 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 136, 80, 75, 37.0, 84, 172),
-(64, 4, 28, '2026-03-09 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 143, 85, 82, 37.4, 87, 176),
-(65, 5, 35, '2026-03-10 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 105, 65, 89, 37.8, 90, 180),
-(66, 6, 42, '2026-03-11 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 112, 70, 96, 38.1, 93, 184),
-(67, 7, 49, '2026-03-12 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 119, 75, 72, 36.4, 46, 188),
-(68, 8, 56, '2026-03-13 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 126, 80, 79, 36.7, 49, 147),
-(69, 9, 63, '2026-03-14 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 133, 85, 86, 37.0, 52, 151),
-(70, 10, 70, '2026-03-15 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 140, 65, 93, 37.4, 55, 155),
-(71, 11, 7, '2026-03-16 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 102, 70, 69, 37.8, 58, 159),
-(72, 12, 14, '2026-03-17 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 109, 75, 76, 38.1, 61, 163),
-(73, 13, 21, '2026-03-18 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 116, 80, 83, 36.4, 64, 167),
-(74, 14, 28, '2026-03-19 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 123, 85, 90, 36.7, 67, 171),
-(75, 15, 35, '2026-03-20 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 130, 65, 97, 37.0, 70, 175),
-(76, 16, 42, '2026-03-21 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 137, 70, 73, 37.4, 73, 179),
-(77, 17, 49, '2026-03-22 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 144, 75, 80, 37.8, 76, 183),
-(78, 18, 56, '2026-03-23 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 106, 80, 87, 38.1, 79, 187),
-(79, 19, 63, '2026-03-24 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 113, 85, 94, 36.4, 82, 146),
-(80, 20, 70, '2026-03-25 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 120, 65, 70, 36.7, 85, 150),
-(81, 1, 7, '2026-03-26 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 127, 70, 77, 37.0, 88, 154),
-(82, 2, 14, '2026-03-27 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 134, 75, 84, 37.4, 91, 158),
-(83, 3, 21, '2026-03-28 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 141, 80, 91, 37.8, 94, 162),
-(84, 4, 28, '2026-03-29 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 103, 85, 98, 38.1, 47, 166),
-(85, 5, 35, '2026-03-30 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 110, 65, 74, 36.4, 50, 170),
-(86, 6, 42, '2026-03-31 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 117, 70, 81, 36.7, 53, 174),
-(87, 7, 49, '2026-04-01 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 124, 75, 88, 37.0, 56, 178),
-(88, 8, 56, '2026-04-02 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 131, 80, 95, 37.4, 59, 182),
-(89, 9, 63, '2026-04-03 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 138, 85, 71, 37.8, 62, 186),
-(90, 10, 70, '2026-04-04 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 100, 65, 78, 38.1, 65, 145),
-(91, 11, 7, '2026-04-05 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 85, 36.4, 68, 149),
-(92, 12, 14, '2026-04-06 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 92, 36.7, 71, 153),
-(93, 13, 21, '2026-04-07 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 68, 37.0, 74, 157),
-(94, 14, 28, '2026-04-08 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 75, 37.4, 77, 161),
-(95, 15, 35, '2026-04-09 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 82, 37.8, 80, 165),
-(96, 16, 42, '2026-04-10 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 89, 38.1, 83, 169),
-(97, 17, 49, '2026-04-11 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 96, 36.4, 86, 173),
-(98, 18, 56, '2026-04-12 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 72, 36.7, 89, 177),
-(99, 19, 63, '2026-04-13 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 79, 37.0, 92, 181),
-(100, 20, 70, '2026-04-14 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 86, 37.4, 45, 185);
+INSERT INTO `medical_examinations` (`ExamID`, `DoctorID`, `PatientID`, `Examination_date`, `Diagnosis`, `examResult`, `mainIssues`, `action`, `notes`, `BloodPressureSistolik`, `BloodPressureDiastolik`, `pulse`, `temperature`, `WeightKg`, `HeightCm`, `status`) VALUES
+(1, 1, 7, '2026-01-05 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 75, 36.4, 48, 149, 'Accepted'),
+(2, 2, 14, '2026-01-06 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 82, 36.7, 51, 153, 'Accepted'),
+(3, 3, 21, '2026-01-07 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 89, 37.0, 54, 157, 'Accepted'),
+(4, 4, 28, '2026-01-08 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 96, 37.4, 57, 161, 'Accepted'),
+(5, 5, 35, '2026-01-09 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 72, 37.8, 60, 165, 'Accepted'),
+(6, 6, 42, '2026-01-10 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 79, 38.1, 63, 169, 'Accepted'),
+(7, 7, 49, '2026-01-11 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 86, 36.4, 66, 173, 'Accepted'),
+(8, 8, 56, '2026-01-12 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 93, 36.7, 69, 177, 'Accepted'),
+(9, 9, 63, '2026-01-13 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 69, 37.0, 72, 181, 'Accepted'),
+(10, 10, 70, '2026-01-14 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 76, 37.4, 75, 185, 'Accepted'),
+(11, 11, 7, '2026-01-15 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 132, 70, 83, 37.8, 78, 189, 'Accepted'),
+(12, 12, 14, '2026-01-16 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 139, 75, 90, 38.1, 81, 148, 'Accepted'),
+(13, 13, 21, '2026-01-17 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 101, 80, 97, 36.4, 84, 152, 'Accepted'),
+(14, 14, 28, '2026-01-18 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 108, 85, 73, 36.7, 87, 156, 'Accepted'),
+(15, 15, 35, '2026-01-19 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 115, 65, 80, 37.0, 90, 160, 'Accepted'),
+(16, 16, 42, '2026-01-20 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 122, 70, 87, 37.4, 93, 164, 'Accepted'),
+(17, 17, 49, '2026-01-21 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 129, 75, 94, 37.8, 46, 168, 'Accepted'),
+(18, 18, 56, '2026-01-22 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 136, 80, 70, 38.1, 49, 172, 'Accepted'),
+(19, 19, 63, '2026-01-23 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 143, 85, 77, 36.4, 52, 176, 'Accepted'),
+(20, 20, 70, '2026-01-24 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 105, 65, 84, 36.7, 55, 180, 'Accepted'),
+(21, 1, 7, '2026-01-25 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 112, 70, 91, 37.0, 58, 184, 'Accepted'),
+(22, 2, 14, '2026-01-26 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 119, 75, 98, 37.4, 61, 188, 'Accepted'),
+(23, 3, 21, '2026-01-27 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 126, 80, 74, 37.8, 64, 147, 'Accepted'),
+(24, 4, 28, '2026-01-28 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 133, 85, 81, 38.1, 67, 151, 'Accepted'),
+(25, 5, 35, '2026-01-29 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 140, 65, 88, 36.4, 70, 155, 'Accepted'),
+(26, 6, 42, '2026-01-30 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 102, 70, 95, 36.7, 73, 159, 'Accepted'),
+(27, 7, 49, '2026-01-31 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 109, 75, 71, 37.0, 76, 163, 'Accepted'),
+(28, 8, 56, '2026-02-01 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 116, 80, 78, 37.4, 79, 167, 'Accepted'),
+(29, 9, 63, '2026-02-02 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 123, 85, 85, 37.8, 82, 171, 'Accepted'),
+(30, 10, 70, '2026-02-03 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 130, 65, 92, 38.1, 85, 175, 'Accepted'),
+(31, 11, 7, '2026-02-04 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 137, 70, 68, 36.4, 88, 179, 'Accepted'),
+(32, 12, 14, '2026-02-05 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 144, 75, 75, 36.7, 91, 183, 'Accepted'),
+(33, 13, 21, '2026-02-06 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 106, 80, 82, 37.0, 94, 187, 'Accepted'),
+(34, 14, 28, '2026-02-07 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 113, 85, 89, 37.4, 47, 146, 'Accepted'),
+(35, 15, 35, '2026-02-08 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 120, 65, 96, 37.8, 50, 150, 'Accepted'),
+(36, 16, 42, '2026-02-09 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 127, 70, 72, 38.1, 53, 154, 'Accepted'),
+(37, 17, 49, '2026-02-10 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 134, 75, 79, 36.4, 56, 158, 'Accepted'),
+(38, 18, 56, '2026-02-11 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 141, 80, 86, 36.7, 59, 162, 'Accepted'),
+(39, 19, 63, '2026-02-12 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 103, 85, 93, 37.0, 62, 166, 'Accepted'),
+(40, 20, 70, '2026-02-13 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 110, 65, 69, 37.4, 65, 170, 'Accepted'),
+(41, 1, 7, '2026-02-14 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 117, 70, 76, 37.8, 68, 174, 'Accepted'),
+(42, 2, 14, '2026-02-15 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 124, 75, 83, 38.1, 71, 178, 'Accepted'),
+(43, 3, 21, '2026-02-16 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 131, 80, 90, 36.4, 74, 182, 'Accepted'),
+(44, 4, 28, '2026-02-17 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 138, 85, 97, 36.7, 77, 186, 'Accepted'),
+(45, 5, 35, '2026-02-18 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 100, 65, 73, 37.0, 80, 145, 'Accepted'),
+(46, 6, 42, '2026-02-19 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 80, 37.4, 83, 149, 'Accepted'),
+(47, 7, 49, '2026-02-20 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 87, 37.8, 86, 153, 'Accepted'),
+(48, 8, 56, '2026-02-21 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 94, 38.1, 89, 157, 'Accepted'),
+(49, 9, 63, '2026-02-22 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 70, 36.4, 92, 161, 'Accepted'),
+(50, 10, 70, '2026-02-23 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 77, 36.7, 45, 165, 'Accepted'),
+(51, 11, 7, '2026-02-24 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 84, 37.0, 48, 169, 'Accepted'),
+(52, 12, 14, '2026-02-25 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 91, 37.4, 51, 173, 'Accepted'),
+(53, 13, 21, '2026-02-26 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 98, 37.8, 54, 177, 'Accepted'),
+(54, 14, 28, '2026-02-27 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 74, 38.1, 57, 181, 'Accepted'),
+(55, 15, 35, '2026-02-28 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 81, 36.4, 60, 185, 'Accepted'),
+(56, 16, 42, '2026-03-01 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 132, 70, 88, 36.7, 63, 189, 'Accepted'),
+(57, 17, 49, '2026-03-02 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 139, 75, 95, 37.0, 66, 148, 'Accepted'),
+(58, 18, 56, '2026-03-03 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 101, 80, 71, 37.4, 69, 152, 'Accepted'),
+(59, 19, 63, '2026-03-04 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 108, 85, 78, 37.8, 72, 156, 'Accepted'),
+(60, 20, 70, '2026-03-05 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 115, 65, 85, 38.1, 75, 160, 'Accepted'),
+(61, 1, 7, '2026-03-06 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 122, 70, 92, 36.4, 78, 164, 'Accepted'),
+(62, 2, 14, '2026-03-07 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 129, 75, 68, 36.7, 81, 168, 'Accepted'),
+(63, 3, 21, '2026-03-08 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 136, 80, 75, 37.0, 84, 172, 'Accepted'),
+(64, 4, 28, '2026-03-09 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 143, 85, 82, 37.4, 87, 176, 'Accepted'),
+(65, 5, 35, '2026-03-10 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 105, 65, 89, 37.8, 90, 180, 'Accepted'),
+(66, 6, 42, '2026-03-11 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 112, 70, 96, 38.1, 93, 184, 'Accepted'),
+(67, 7, 49, '2026-03-12 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 119, 75, 72, 36.4, 46, 188, 'Accepted'),
+(68, 8, 56, '2026-03-13 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 126, 80, 79, 36.7, 49, 147, 'Accepted'),
+(69, 9, 63, '2026-03-14 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 133, 85, 86, 37.0, 52, 151, 'Accepted'),
+(70, 10, 70, '2026-03-15 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 140, 65, 93, 37.4, 55, 155, 'Accepted'),
+(71, 11, 7, '2026-03-16 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 102, 70, 69, 37.8, 58, 159, 'Accepted'),
+(72, 12, 14, '2026-03-17 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 109, 75, 76, 38.1, 61, 163, 'Accepted'),
+(73, 13, 21, '2026-03-18 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 116, 80, 83, 36.4, 64, 167, 'Accepted'),
+(74, 14, 28, '2026-03-19 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 123, 85, 90, 36.7, 67, 171, 'Accepted'),
+(75, 15, 35, '2026-03-20 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 130, 65, 97, 37.0, 70, 175, 'Accepted'),
+(76, 16, 42, '2026-03-21 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 137, 70, 73, 37.4, 73, 179, 'Accepted'),
+(77, 17, 49, '2026-03-22 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 144, 75, 80, 37.8, 76, 183, 'Accepted'),
+(78, 18, 56, '2026-03-23 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 106, 80, 87, 38.1, 79, 187, 'Accepted'),
+(79, 19, 63, '2026-03-24 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 113, 85, 94, 36.4, 82, 146, 'Accepted'),
+(80, 20, 70, '2026-03-25 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 120, 65, 70, 36.7, 85, 150, 'Accepted'),
+(81, 1, 7, '2026-03-26 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 127, 70, 77, 37.0, 88, 154, 'Accepted'),
+(82, 2, 14, '2026-03-27 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 134, 75, 84, 37.4, 91, 158, 'Accepted'),
+(83, 3, 21, '2026-03-28 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 141, 80, 91, 37.8, 94, 162, 'Accepted'),
+(84, 4, 28, '2026-03-29 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 103, 85, 98, 38.1, 47, 166, 'Accepted'),
+(85, 5, 35, '2026-03-30 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 110, 65, 74, 36.4, 50, 170, 'Accepted'),
+(86, 6, 42, '2026-03-31 14:00:00', 'Asma', 'Keluhan pernapasan perlu dipantau; evaluasi respons terapi.', 'Batuk dan sesak episodik.', 'Penilaian pernapasan dan edukasi penggunaan terapi.', 'Hindari pencetus yang diketahui dan ikuti rencana kontrol.', 117, 70, 81, 36.7, 53, 174, 'Accepted'),
+(87, 7, 49, '2026-04-01 08:00:00', 'Diare', 'Keluhan pencernaan dengan risiko kekurangan cairan.', 'Frekuensi buang air besar meningkat dan perut mulas.', 'Evaluasi hidrasi dan edukasi penggantian cairan.', 'Perbanyak cairan dan segera periksa bila muncul tanda dehidrasi.', 124, 75, 88, 37.0, 56, 178, 'Accepted'),
+(88, 8, 56, '2026-04-02 11:00:00', 'Infeksi Saluran Kemih', 'Keluhan mengarah pada infeksi saluran kemih; perlu evaluasi.', 'Nyeri saat buang air kecil dan sering ingin berkemih.', 'Pemeriksaan lanjutan sesuai indikasi dan terapi dokter.', 'Ikuti terapi sampai selesai sesuai instruksi dokter.', 131, 80, 95, 37.4, 59, 182, 'Accepted'),
+(89, 9, 63, '2026-04-03 14:00:00', 'Anemia', 'Keluhan dapat berkaitan dengan kadar hemoglobin; perlu pemeriksaan pendukung.', 'Mudah lelah dan terkadang pusing.', 'Evaluasi riwayat dan rencana pemeriksaan darah.', 'Ikuti jadwal pemeriksaan lanjutan dan anjuran nutrisi.', 138, 85, 71, 37.8, 62, 186, 'Accepted'),
+(90, 10, 70, '2026-04-04 08:00:00', 'Flu', 'Gejala menyerupai infeksi virus saluran pernapasan.', 'Pilek, bersin, dan badan terasa pegal.', 'Pemeriksaan fisik dan penanganan gejala.', 'Istirahat cukup dan terapkan etika batuk.', 100, 65, 78, 38.1, 65, 145, 'Accepted'),
+(91, 11, 7, '2026-04-05 11:00:00', 'ISPA', 'Gejala infeksi saluran pernapasan atas ringan; kondisi umum stabil.', 'Batuk, pilek, dan tenggorokan terasa tidak nyaman.', 'Pemeriksaan fisik dan edukasi perawatan mandiri.', 'Istirahat cukup, minum air, dan kembali kontrol bila gejala memburuk.', 107, 70, 85, 36.4, 68, 149, 'Accepted'),
+(92, 12, 14, '2026-04-06 14:00:00', 'Gastritis', 'Keluhan sesuai gambaran iritasi lambung; perlu pemantauan gejala.', 'Nyeri ulu hati dan perut terasa perih.', 'Evaluasi pola makan dan pemberian terapi sesuai resep.', 'Makan teratur dan ikuti petunjuk obat dari dokter.', 114, 75, 92, 36.7, 71, 153, 'Accepted'),
+(93, 13, 21, '2026-04-07 08:00:00', 'Hipertensi', 'Tekanan darah pada kunjungan ini perlu pemantauan berkala.', 'Pusing sesekali dan tekanan darah meningkat.', 'Pengukuran tekanan darah ulang dan konseling gaya hidup.', 'Catat tekanan darah dan lakukan kontrol sesuai jadwal.', 121, 80, 68, 37.0, 74, 157, 'Accepted'),
+(94, 14, 28, '2026-04-08 11:00:00', 'Diabetes Melitus Tipe 2', 'Keluhan perlu dipantau bersama pemeriksaan glukosa berkala.', 'Sering haus dan mudah merasa lelah.', 'Evaluasi kondisi dan edukasi pengelolaan pola hidup.', 'Ikuti rencana kontrol dan anjuran dokter.', 128, 85, 75, 37.4, 77, 161, 'Accepted'),
+(95, 15, 35, '2026-04-09 14:00:00', 'Demam', 'Suhu tubuh meningkat pada saat pemeriksaan.', 'Badan terasa panas dan lemas.', 'Pemeriksaan tanda vital dan evaluasi penyebab demam.', 'Cukupi cairan dan periksa kembali bila demam menetap.', 135, 65, 82, 37.8, 80, 165, 'Accepted'),
+(96, 16, 42, '2026-04-10 08:00:00', 'Migrain', 'Pola keluhan mengarah pada migrain berdasarkan wawancara.', 'Sakit kepala berulang, terkadang disertai sensitif cahaya.', 'Evaluasi pemicu dan penanganan gejala.', 'Istirahat cukup dan catat frekuensi sakit kepala.', 142, 70, 89, 38.1, 83, 169, 'Accepted'),
+(97, 17, 49, '2026-04-11 11:00:00', 'Dermatitis', 'Terdapat keluhan iritasi kulit yang perlu dipantau.', 'Kulit terasa gatal dan muncul ruam.', 'Pemeriksaan area kulit dan edukasi perawatan.', 'Hindari pemicu iritasi dan jaga kebersihan area kulit.', 104, 75, 96, 36.4, 86, 173, 'Accepted'),
+(98, 18, 56, '2026-04-12 14:00:00', 'Faringitis', 'Terdapat tanda peradangan pada area tenggorokan.', 'Nyeri tenggorokan saat menelan.', 'Pemeriksaan tenggorokan dan penanganan sesuai evaluasi.', 'Jaga asupan cairan dan kontrol bila keluhan bertambah.', 111, 80, 72, 36.7, 89, 177, 'Accepted'),
+(99, 19, 63, '2026-04-13 08:00:00', 'Artritis', 'Keluhan sendi memerlukan pemantauan dan evaluasi lanjutan.', 'Nyeri dan kaku pada persendian.', 'Pemeriksaan fungsi sendi dan edukasi aktivitas.', 'Hindari aktivitas yang memperberat nyeri dan lakukan kontrol.', 118, 85, 79, 37.0, 92, 181, 'Accepted'),
+(100, 20, 70, '2026-04-14 11:00:00', 'Konjungtivitis', 'Keluhan sesuai peradangan konjungtiva.', 'Mata merah, berair, dan terasa gatal.', 'Pemeriksaan mata dan edukasi kebersihan.', 'Jangan menggosok mata dan jaga kebersihan tangan.', 125, 65, 86, 37.4, 45, 185, 'Accepted');
 
 -- --------------------------------------------------------
 
@@ -519,6 +545,19 @@ INSERT INTO `patients` (`PatientID`, `PatientName`, `NIK`, `Email`, `BloodType`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `patient_chat`
+--
+
+CREATE TABLE `patient_chat` (
+  `ChatPID` int(11) NOT NULL,
+  `UserID` int(11) DEFAULT NULL,
+  `Chat` text DEFAULT NULL,
+  `Time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -571,11 +610,26 @@ INSERT INTO `users` (`UserID`, `UserName`, `Email`, `Password`, `Role`) VALUES
 --
 
 --
+-- Indexes for table `chat_connect`
+--
+ALTER TABLE `chat_connect`
+  ADD PRIMARY KEY (`ConnectID`),
+  ADD KEY `fk_conn` (`ChatDID`),
+  ADD KEY `fk_connP` (`ChatPID`);
+
+--
 -- Indexes for table `doctors`
 --
 ALTER TABLE `doctors`
   ADD PRIMARY KEY (`DoctorID`),
   ADD KEY `fk_usersD` (`UserID`);
+
+--
+-- Indexes for table `doctor_chat`
+--
+ALTER TABLE `doctor_chat`
+  ADD PRIMARY KEY (`ChatDID`),
+  ADD KEY `fk_chd` (`UserID`);
 
 --
 -- Indexes for table `drugs`
@@ -608,6 +662,13 @@ ALTER TABLE `patients`
   ADD KEY `fk_usersP` (`UserID`);
 
 --
+-- Indexes for table `patient_chat`
+--
+ALTER TABLE `patient_chat`
+  ADD PRIMARY KEY (`ChatPID`),
+  ADD KEY `fk_chp` (`UserID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -618,10 +679,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `chat_connect`
+--
+ALTER TABLE `chat_connect`
+  MODIFY `ConnectID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
   MODIFY `DoctorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `doctor_chat`
+--
+ALTER TABLE `doctor_chat`
+  MODIFY `ChatDID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `drugs`
@@ -648,6 +721,12 @@ ALTER TABLE `patients`
   MODIFY `PatientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
+-- AUTO_INCREMENT for table `patient_chat`
+--
+ALTER TABLE `patient_chat`
+  MODIFY `ChatPID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -658,10 +737,23 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `chat_connect`
+--
+ALTER TABLE `chat_connect`
+  ADD CONSTRAINT `fk_conn` FOREIGN KEY (`ChatDID`) REFERENCES `doctor_chat` (`ChatDID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_connP` FOREIGN KEY (`ChatPID`) REFERENCES `patient_chat` (`ChatPID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `doctors`
 --
 ALTER TABLE `doctors`
   ADD CONSTRAINT `fk_usersD` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `doctor_chat`
+--
+ALTER TABLE `doctor_chat`
+  ADD CONSTRAINT `fk_chd` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `medical_examinations`
@@ -682,6 +774,12 @@ ALTER TABLE `medical_prescriptions`
 --
 ALTER TABLE `patients`
   ADD CONSTRAINT `fk_usersP` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_chat`
+--
+ALTER TABLE `patient_chat`
+  ADD CONSTRAINT `fk_chp` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
