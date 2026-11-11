@@ -5,6 +5,7 @@ Timestamp margin of error +- 2 minutes.
 ===============================================================================================================
 11 November 2026:
 - UPDATE adding structure database for appointment system and forum chat (Dafa in Meisha's account) [09.54 WIB]
+- ADDED styling header dan footer di css
 
 7 November 2026:
 - UPDATE adding more data to rumah_sakit_web.sql (Dafa) [20.03 WIB]
