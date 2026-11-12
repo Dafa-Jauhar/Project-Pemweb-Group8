@@ -97,7 +97,7 @@
             <div class="sidebar-header">
                 <div class="brand">
                     <img src="assets/image/RedCross.png" alt="ReMeDiVe" class="logo-icon">
-                    <span>ReMeDiVe</span>
+                    <span class="brand-name">ReMeDiVe</span>
                 </div>
             </div>
             <div class="sidebar-content">
