@@ -7,6 +7,10 @@ Timestamp margin of error +- 2 minutes.
 13 November 2026:
 - UPDATE matching header.php to initial design concept (Radit) [00.11]
 - ADDED file logout.php, patient_dashboard.php, timezone.php, patient_records.php (Radit) [00.11]
+- UPDATE rumah_sakit_web.sql about patient, doctor, and user correlation and adding allergy column on patients (Dafa) []
+- UPDATE header.php (Radit) [23.42]
+- ADDED file patient_profile.php, doctor_dashboard.php, doctor_patients.php (Radit) [23.42]
+
 
 11 November 2026:
 - UPDATE adding structure database for appointment system and forum chat (Dafa in Meisha's account) [09.54 WIB]
