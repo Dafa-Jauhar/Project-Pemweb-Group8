@@ -4,12 +4,16 @@ Change in project separated into 3 category (ADDED, UPDATE, DELETE).
 Timestamp margin of error +- 2 minutes.
 ==============================================================================================================
 
+14 November 2026:
+- ADDED file chat.php, doctor_schedule.php (Radit) [12.54 WIB]
+- UPDATE rumah_sakit_web.sql some PK in chat related to AutoIncrement (Radit) [12.54 WIB]
+
 13 November 2026:
-- UPDATE matching header.php to initial design concept (Radit) [00.11]
-- ADDED file logout.php, patient_dashboard.php, timezone.php, patient_records.php (Radit) [00.11]
+- UPDATE matching header.php to initial design concept (Radit) [00.11 WIB]
+- ADDED file logout.php, patient_dashboard.php, timezone.php, patient_records.php (Radit) [00.11 WIB]
 - UPDATE rumah_sakit_web.sql about patient, doctor, and user correlation and adding allergy column on patients (Dafa) []
-- UPDATE header.php (Radit) [23.42]
-- ADDED file patient_profile.php, doctor_dashboard.php, doctor_patients.php (Radit) [23.42]
+- UPDATE header.php (Radit) [23.42 WIB]
+- ADDED file patient_profile.php, doctor_dashboard.php, doctor_patients.php (Radit) [23.42 WIB]
 
 
 11 November 2026:
