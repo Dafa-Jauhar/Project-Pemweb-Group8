@@ -5,6 +5,7 @@ Timestamp margin of error +- 2 minutes.
 ==============================================================================================================
 
 16 November 2026:
+- add auto increment to chat sql (dafa)[22.38 WIB]
 - design login page (meisha)
 - ⁠design header & sidebar (meisha)
 - ⁠design register page (meisha)
