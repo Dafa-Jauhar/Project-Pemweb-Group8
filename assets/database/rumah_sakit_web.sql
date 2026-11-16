@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chat_connect` (
-  `ConnectID` int(11) NOT NULL,
+  `ConnectID` int(11) NOT NULL auto_increment,
   `ChatDID` int(11) DEFAULT NULL,
   `ChatPID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -40,7 +40,7 @@ CREATE TABLE `chat_connect` (
 --
 
 CREATE TABLE `doctors` (
-  `DoctorID` int(11) NOT NULL,
+  `DoctorID` int(11) NOT NULL auto_increment,
   `DoctorName` varchar(50) NOT NULL,
   `Speciality` varchar(20) DEFAULT NULL,
   `PhoneNumber` varchar(15) DEFAULT NULL,
@@ -82,7 +82,7 @@ INSERT INTO `doctors` (`DoctorID`, `DoctorName`, `Speciality`, `PhoneNumber`, `E
 --
 
 CREATE TABLE `doctor_chat` (
-  `ChatDID` int(11) NOT NULL,
+  `ChatDID` int(11) NOT NULL auto_increment,
   `UserID` int(11) DEFAULT NULL,
   `Chat` text DEFAULT NULL,
   `Time` datetime DEFAULT NULL
@@ -545,7 +545,7 @@ INSERT INTO `patients` (`PatientID`, `PatientName`, `NIK`, `Email`, `BloodType`,
 --
 
 CREATE TABLE `patient_chat` (
-  `ChatPID` int(11) NOT NULL,
+  `ChatPID` int(11) NOT NULL auto_increment,
   `UserID` int(11) DEFAULT NULL,
   `Chat` text DEFAULT NULL,
   `Time` datetime DEFAULT NULL
