@@ -51,7 +51,7 @@
                     <img src="assets/image/RedCross.png" alt="ReMeDiVe" class="logo-icon">
                     <span class="brand-name">ReMeDiVe</span>
                 </div>
-                <div class="hospital-tag">RS SEHAT SENTOSA</div>
+                <div class="hospital-tag">Klinik UPN "Veteran"</div>
             </div>
             <div class="info-card">
                 <div class="card-header">

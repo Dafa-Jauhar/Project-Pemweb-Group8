@@ -4,6 +4,17 @@ Change in project separated into 3 category (ADDED, UPDATE, DELETE).
 Timestamp margin of error +- 2 minutes.
 ==============================================================================================================
 
+16 November 2026:
+- design login page (meisha)
+- ⁠design header & sidebar (meisha)
+- ⁠design register page (meisha)
+- ⁠design dashboard pasien (meisha)
+- ⁠design riwayat rekam medis pasien (meisha)
+- ⁠design pratinjau pdf cetak (meisha)
+- ⁠design dashboard dokter (meisha)
+- ⁠design fitur chat dr dokter ke pasien (meisha)
+
+
 14 November 2026:
 - ADDED file chat.php, doctor_schedule.php (Radit) [12.54 WIB]
 - UPDATE rumah_sakit_web.sql some PK in chat related to AutoIncrement (Radit) [12.54 WIB]

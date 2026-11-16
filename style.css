@@ -1,96 +1,2492 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+:root {
+    --primary-blue: #1D75E8;
+    --primary-dark: #0F2A56;
+    --primary-light: #EEF5FE;
+    --bg-main: #F8FAFC;
+    --text-dark: #1E293B;
+    --text-muted: #64748B;
+    --border-color: #E2E8F0;
+    --bg-input: #F8FAFC;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================================
+   1. DESIGN UNTUK HALAMAN LOGIN (login.php)
+   ========================================================= */
+.login-body {
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+    display: flex;          /* Membagi 2 kolom langsung di body */
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 44%;             /* Kolom kiri ambil 44% layar */
+    background: linear-gradient(145deg, var(--primary-dark) 0%, #165BB8 60%, var(--primary-blue) 100%);
+    color: #FFFFFF;
+    padding: 40px 48px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    background-color: ghostwhite;
+    justify-content: space-between;
 }
 
-.website-header {
-    width: 100%;
-    background-color: rgb(247, 227, 227);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+.login-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto; 
-    padding: 15px 20px; 
+.sidebar-header {
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
 }
 
-.logo a {
+.brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    text-decoration: none;
-    color: #333333;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .logo-icon {
-    width: 35px;
-    height: 35px;
-    object-fit: contain;
+    height: 32px;
+    width: auto;
+    background: #FFFFFF;
+    padding: 5px;
+    border-radius: 8px;
 }
 
-.nav-menu {
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.hospital-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    background: rgba(255, 255, 255, 0.14);
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.card-header h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.card-header p {
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 20px;
+}
+
+.feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-list li {
+    position: relative;
+    padding-left: 32px;
+}
+
+.feature-list .check-icon {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background: #FFFFFF;
+    color: var(--primary-blue);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.feature-list strong {
+    font-size: 0.88rem;
+}
+
+.feature-list small {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.78rem;
+}
+
+.sidebar-footer {
+    bottom: 32px;
+    left: 48px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.8rem;
+}
+
+/* Panel Kanan Login */
+.login-main {
+    width: 56%;
+    padding: 36px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav, .form-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.portal-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.help-link {
+    font-size: 0.82rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+}
+
+.alert-error {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    margin-bottom: 18px;
+}
+
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.role-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    background: #FFFFFF;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.role-btn.active {
+    border-color: var(--primary-blue);
+    background: var(--primary-light);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.role-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 11px 40px 11px 14px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    outline: none;
+}
+
+.input-with-icon input:focus {
+    border-color: var(--primary-blue);
+    background: #FFFFFF;
+}
+
+.input-icon {
+    position: absolute;
+    right: 14px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.form-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    margin-bottom: 22px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+}
+
+.forgot-password {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-submit-primaty {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-blue);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(29, 117, 232, 0.25);
+}
+
+.register-promt {
+    text-align: center;
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    margin-top: 20px;
+}
+
+.register-promt a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.privacy-disclaimer {
+    text-align: center;
+    color: #94A3B8;
+    font-size: 0.74rem;
+    margin-top: 24px;
+}
+
+.bottom-footer {
+    text-align: center;
+    color: #94A3B8;
+    font-size: 0.74rem;
+    margin-top: 8px;
+}
+
+/* =========================================================
+   2. DESIGN UNTUK HEADER & SIDEBAR (header.php)
+   ========================================================= */
+.app-layout {
+    display: flex;
+    background-color: var(--bg-main);
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #FFFFFF;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-brand {
+    padding: 0 12px 24px 12px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-brand h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.sidebar-brand small {
+    width: 100%;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: -4px;
+    padding-left: 35px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.menu-item span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-item:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+}
+
+.menu-item.active {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(29, 117, 232, 0.25);
+}
+
+.sidebar-footer-menu {
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.logout-item:hover {
+    background-color: #FEF2F2;
+    color: #EF4444;
+}
+
+.copyright-box {
+    margin-top: 12px;
+    padding: 0 16px;
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+.main-wrapper {
+    flex-grow: 1;
+    margin-left: 260px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-header {
+    height: 76px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.top-header-left p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.top-header-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.nav-menu a {
-    text-decoration: none;
-    color: #555555;
-    font-size: 15px;
-    font-weight: 500;
-    transition: color 0.3s ease;
+.role-badge {
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
 }
 
-.nav-menu a:hover {
-    color: #007bff;
+.user-profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 20px;
+    border-left: 1px solid var(--border-color);
 }
 
-.user-greeting {
-    font-size: 14px;
-    color: #444444;
+.user-avatar-small {
+    width: 38px;
+    height: 38px;
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
 }
 
-.btn-logout {
-    background-color: #dc3545;
-    color: #ffffff !important; 
-    padding: 8px 15px;
-    border-radius: 5px; 
-    transition: background-color 0.3s ease;
+.user-info-text {
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-logout:hover {
-    background-color: #bd2130; 
+.u-name {
+    font-size: 0.88rem;
+    font-weight: 600;
 }
 
-.website-footer {
-    width: 100%;
-    background-color: rgb(247, 227, 227);
+.user-info-text small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* =========================================================
+   3. DESIGN UNTUK HALAMAN REGISTER (register.php)
+   ========================================================= */
+.register-body {
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+}
+
+.register-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Panel Kiri (Biru Gradasi Tetap / Sticky saat form di-scroll) */
+.register-sidebar {
+    width: 38%;
+    background: linear-gradient(145deg, var(--primary-dark) 0%, #165BB8 60%, var(--primary-blue) 100%);
+    color: #FFFFFF;
+    padding: 40px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
     top: 0;
-    z-index: 1000;
+    height: 100vh;
 }
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 20px;
+.register-sidebar .sidebar-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.register-sidebar .subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+/* 3 Langkah Fitur di Panel Kiri */
+.feature-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.step-items {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px 16px;
+    border-radius: 14px;
+}
+
+.step-icon {
+    background: #FFFFFF;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.step-items h3 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.step-items p {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.register-sidebar .sidebar-footer {
+    position: static; /* Mengembalikan posisi normal di dalam flexbox register */
+    left: auto;
+    bottom: auto;
+}
+
+.security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.4;
+}
+
+/* Panel Kanan (Form Pendaftaran) */
+.register-main {
+    width: 62%;
+    padding: 36px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-main .top-nav,
+.register-main .form-container,
+.register-main .bottom-footer {
+    max-width: 640px;
+    width: 100%;
+}
+
+.back-link {
+    font-size: 0.85rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.form-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.required-note {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background: var(--primary-light);
+    padding: 5px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.alert-success {
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.alert-success a {
+    color: #047857;
+    font-weight: 700;
+}
+
+/* Judul Sub-bagian Form */
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+/* Grid 2 Kolom untuk Input Berdampingan */
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Styling Input, Select, dan Textarea di Register */
+.register-main input[type="text"],
+.register-main input[type="email"],
+.register-main input[type="password"],
+.register-main input[type="date"],
+.register-main select,
+.register-main textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.register-main input:focus,
+.register-main select:focus,
+.register-main textarea:focus {
+    border-color: var(--primary-blue);
+    background: #FFFFFF;
+}
+
+.register-main textarea {
+    resize: vertical;
+}
+
+.input-hint {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* Banner Keamanan Data */
+.info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--primary-light);
+    border: 1px solid #BFDBFE;
+    color: var(--primary-dark);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin-top: 20px;
+    margin-bottom: 18px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.btn-submit-primary {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-blue);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(29, 117, 232, 0.25);
+    margin-top: 8px;
+}
+
+.btn-submit-primary:hover {
+    background: #1662C4;
+}
+
+.doctor-notice {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-input);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 18px;
+}
+
+.register-main .bottom-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 900px) {
+    .register-sidebar {
+        display: none;
+    }
+    .register-main {
+        width: 100%;
+        padding: 24px;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* =========================================================
+   4. DESIGN UNTUK DASHBOARD PASIEN (patient_dashboard.php)
+   ========================================================= */
+.main-content {
+    margin-left: 260px; /* Supaya tidak tertutup sidebar kiri */
+    padding: 28px 32px;
+    background-color: var(--bg-main);
+    min-height: calc(100vh - 76px);
+}
+
+/* Kartu Umum */
+.card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 8px rgba(15, 42, 86, 0.03);
+}
+
+/* Header Sapaan (Halo, Lina) */
+.welcome-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-    font-family: Arial;
+    margin-bottom: 24px;
+    gap: 16px;
+}
 
+.welcome-text h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.welcome-text p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.btn-action-primary {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(29, 117, 232, 0.22);
+    white-space: nowrap;
+}
+
+.btn-action-primary:hover {
+    background-color: #1662C4;
+}
+
+/* Kartu Ringkasan Profil Pasien */
+.profile-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.profile-avatar-large {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+    color: #FFFFFF;
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-info-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.2fr 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.profile-main-data h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.profile-main-data p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.profile-main-data .birth-text {
+    font-size: 0.78rem;
+    margin-top: 2px;
+}
+
+.profile-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 16px;
+}
+
+.profile-col .label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.profile-col .value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.warning-tag {
+    display: inline-block;
+    width: fit-content;
+    background-color: #FEF3C7;
+    color: #B45309;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem !important;
+}
+
+/* Judul Bagian (Ringkasan kesehatan) */
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.section-header-row h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.section-sub-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Grid 3 Kartu Metrik Kesehatan (Tekanan Darah, Nadi, Berat) */
+.health-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metric-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.metric-icon {
+    background-color: var(--primary-light);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.metric-value-row h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.metric-value-row small {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.metric-footer-row {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding-top: 10px;
+    border-top: 1px solid #F1F5F9;
+}
+
+/* Grid Bawah: Kolom Kiri (Kunjungan & Obat) & Kolom Kanan (Kontrol & Akses Cepat) */
+.dashboard-grid-split {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.left-split-content, .right-split-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-title-row h3, .content-card > h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.status-badge-green {
+    background-color: #DCFCE7;
+    color: #15803D;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Detail Kunjungan Terakhir */
+.visit-detail-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px;
+    background-color: var(--bg-main);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.visit-date-badge {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 72px;
+}
+
+.visit-date-badge .v-day {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.visit-date-badge .v-mon {
+    font-size: 0.68rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.visit-info h4 {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+}
+
+.poli-text {
+    font-size: 0.82rem;
+    color: var(--primary-blue);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.doctor-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.diagnosis-summary-box {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 14px;
+}
+
+.diag-col .label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.diag-col p {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.text-green {
+    color: #15803D;
+    font-weight: 600 !important;
+}
+
+.card-footer-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.link-arrow {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Daftar Obat */
+.section-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+.medicine-item-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.med-icon {
+    background-color: var(--primary-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.med-details {
+    flex-grow: 1;
+}
+
+.med-details h4 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.med-details p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.med-details small {
+    font-size: 0.74rem;
+    color: var(--primary-blue);
+}
+
+.med-tag {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+/* Disclaimer Bawah */
+.notice-disclaimer-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: var(--primary-light);
+    border: 1px solid #BFDBFE;
+    color: var(--primary-dark);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.45;
+}
+
+/* Kartu Kanan: Kontrol Berikutnya */
+.highlight-card {
+    background: linear-gradient(145deg, #0F2A56 0%, #1D75E8 100%);
+    color: #FFFFFF;
+    border: none;
+}
+
+.highlight-card .card-title-row {
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.highlight-card h3 {
+    color: #FFFFFF;
+}
+
+.next-control-date {
+    margin: 12px 0;
+}
+
+.next-control-date h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.next-control-date p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.control-note {
+    font-size: 0.78rem;
+    opacity: 0.8;
+    line-height: 1.45;
+    margin-bottom: 18px;
+}
+
+.btn-outline-primary {
+    display: block;
+    text-align: center;
+    background-color: #FFFFFF;
+    color: var(--primary-blue);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Kartu Kanan: Akses Cepat */
+.quick-links-list {
+    list-style: none;
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quick-links-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 0.86rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.quick-links-list a:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background-color: var(--primary-light);
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 1024px) {
+    .profile-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .health-metrics-grid, .dashboard-grid-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   5. DESIGN UNTUK RIWAYAT REKAM MEDIS & PDF (patient_records.php)
+   ========================================================= */
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    gap: 16px;
+}
+
+.page-header-row h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.profile-avatar-medium {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Bar Pencarian & Filter Dropdown */
+.filter-search-container {
+    margin-bottom: 24px;
+}
+
+.search-form-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+}
+
+.search-input-wrapper .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    outline: none;
+}
+
+.search-input-wrapper input:focus {
+    border-color: var(--primary-blue);
+}
+
+.filter-dropdowns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-select {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-filter-sort {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.btn-filter-sort:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+/* Header Timeline Kunjungan */
+.timeline-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.timeline-header-info h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.badge-count {
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.text-center {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 36px 24px;
+}
+
+/* Kartu Item Timeline Kunjungan */
+.timeline-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+}
+
+.timeline-date-badge {
+    background-color: var(--primary-light);
+    border: 1px solid #BFDBFE;
+    color: var(--primary-dark);
+    padding: 14px 12px;
+    border-radius: 14px;
+    text-align: center;
+    min-width: 96px;
+    flex-shrink: 0;
+}
+
+.timeline-date-badge .t-day {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    line-height: 1.1;
+}
+
+.timeline-date-badge .t-mon {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.timeline-date-badge .t-time {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.badge-terbaru-sub {
+    display: inline-block;
+    margin-top: 8px;
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.timeline-content-body {
+    flex-grow: 1;
+}
+
+.timeline-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.timeline-title-row h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.doctor-meta {
+    font-size: 0.82rem;
+    color: var(--primary-blue);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.exam-details-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    padding: 14px;
+    background-color: var(--bg-main);
+    border-radius: 12px;
+    margin-bottom: 14px;
+}
+
+.ex-col .label {
+    display: block;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+}
+
+.ex-col p {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.vital-tags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.vital-tags-grid span {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.diagnosis-box-inner {
+    background-color: #F8FAFC;
+    border-left: 3px solid var(--primary-blue);
+    padding: 12px 14px;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.84rem;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.prescription-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.presc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.82rem;
+}
+
+.presc-item p {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.timeline-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.link-print {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* =========================================================
+   6. DESIGN PRATINJAU CETAK / UNDUH PDF
+   ========================================================= */
+.breadcrumb-header .text-muted {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.action-buttons-top {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-outline-secondary {
+    padding: 10px 18px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.download-preview-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.settings-sidebar-card h3 {
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+.form-group-section {
+    margin-bottom: 16px;
+}
+
+.section-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.radio-group label {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.visit-checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.visit-check-item {
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.82rem;
+}
+
+.visit-check-item.active {
+    border-color: var(--primary-blue);
+    background-color: var(--primary-light);
+}
+
+.visit-check-item p {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.form-control-select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.84rem;
+}
+
+.doc-content-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.full-width-btn {
+    border: 1.5px solid var(--primary-blue);
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.text-center-muted {
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.security-notice-box {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+}
+
+.security-notice-box p {
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* Lembar Kertas PDF */
+.pdf-paper-preview {
+    background-color: #E2E8F0;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.pdf-toolbar-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.pdf-document-sheet {
+    background-color: #FFFFFF;
+    padding: 36px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.pdf-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdf-hospital-logo {
+    font-size: 1.6rem;
+}
+
+.pdf-meta-right {
+    text-align: right;
+}
+
+.badge-rahasia {
+    display: block;
+    background-color: #FEF2F2;
+    color: #DC2626;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.pdf-divider {
+    border: none;
+    border-top: 1.5px solid var(--text-dark);
+    margin: 16px 0;
+}
+
+.pdf-title-section {
+    margin-bottom: 18px;
+}
+
+.pdf-title-section p {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
+.pdf-info-table, .pdf-vitals-table, .pdf-drug-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+    font-size: 0.84rem;
+}
+
+.pdf-info-table td, .pdf-vitals-table td, .pdf-drug-table th, .pdf-drug-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.pdf-drug-table th {
+    background-color: var(--bg-main);
+}
+
+.pdf-section-block {
+    margin-bottom: 18px;
+    font-size: 0.85rem;
+}
+
+.pdf-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.pdf-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+    font-size: 0.85rem;
+}
+
+.pdf-footer-sign {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.82rem;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.pdf-legal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* Otomatis sembunyikan sidebar saat tombol Cetak / PDF diklik */
+@media print {
+    .sidebar, .top-header, .page-header-row, .settings-sidebar-card, .pdf-toolbar-top {
+        display: none !important;
+    }
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+        background: #FFFFFF !important;
+    }
+    .download-preview-layout {
+        display: block !important;
+    }
+    .pdf-paper-preview {
+        padding: 0 !important;
+        background: none !important;
+    }
+    .pdf-document-sheet {
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+}
+
+/* =========================================================
+   7. DESIGN UNTUK DASHBOARD DOKTER (doctor_dashboard.php)
+   ========================================================= */
+.doctor-welcome-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.doctor-welcome-row h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.practice-schedule-badge {
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    border: 1px solid #BFDBFE;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Grid 3 Kartu Statistik Dokter */
+.doctor-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.doctor-metrics-grid .metric-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-title {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.metric-note {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.metric-icon-box {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+/* Toolbar Search & Filter Tabel Pasien */
+.table-filter-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.search-box-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+}
+
+.search-box-wrapper .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.search-box-wrapper .form-control {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-input);
+    border-radius: 10px;
+    font-size: 0.86rem;
+    color: var(--text-dark);
+    outline: none;
+}
+
+.filter-actions-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-filter-dropdown {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.btn-filter-dropdown:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+/* Tabel Daftar Pasien */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.data-table thead th {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    background-color: var(--bg-main);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.86rem;
+    color: var(--text-dark);
+    vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+    background-color: #F8FAFC;
+}
+
+.patient-table-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.table-avatar-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.patient-table-identity strong {
+    display: block;
+    font-size: 0.88rem;
+    margin-bottom: 2px;
+}
+
+.patient-table-identity small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.status-accepted {
+    background-color: #DCFCE7;
+    color: #15803D;
+}
+
+.status-pending {
+    background-color: #FEF3C7;
+    color: #B45309;
+}
+
+.table-action-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.table-action-link:hover {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+}
+
+/* Footer Tabel & Pagination */
+.table-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.table-footer-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-btn.active-page {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    border-color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Grid 2 Kartu Bawah Dashboard Dokter */
+.dashboard-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.last-access-card h4 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.last-access-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background-color: var(--bg-main);
+    border-radius: 12px;
+}
+
+.access-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.last-access-item strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.last-access-item small {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.link-action-inline {
+    margin-left: auto;
+    color: var(--primary-blue);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.security-notice-card {
+    background-color: var(--primary-light);
+    border-color: #BFDBFE;
+}
+
+.security-notice-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-dark);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.security-notice-card .section-desc {
+    color: var(--primary-dark);
+    margin-bottom: 0;
+    line-height: 1.45;
+}
+
+@media (max-width: 1024px) {
+    .doctor-metrics-grid, .dashboard-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   8. DESIGN UNTUK FITUR CHAT (chat.php)
+   ========================================================= */
+.alert-success-box {
+    background-color: #ECFDF5;
+    color: #059669;
+    border: 1px solid #A7F3D0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    margin-bottom: 18px;
+}
+
+.alert-error-box {
+    background-color: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    margin-bottom: 18px;
+}
+
+/* Grid 2 Kolom: Daftar Kontak Kiri & Ruang Chat Kanan */
+.chat-container-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+    height: calc(100vh - 210px);
+    min-height: 500px;
+}
+
+/* Panel Kiri: Daftar Kontak */
+.chat-sidebar-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.chat-sidebar-card h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.chat-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    margin-top: 8px;
+}
+
+.chat-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-dark);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.chat-contact-item:hover {
+    background-color: var(--bg-main);
+    border-color: var(--border-color);
+}
+
+.chat-contact-item.active-contact {
+    background-color: var(--primary-light);
+    border-color: #BFDBFE;
+}
+
+.chat-contact-item strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.chat-contact-item.active-contact strong {
+    color: var(--primary-blue);
+}
+
+.chat-contact-item small {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.contact-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Panel Kanan: Ruang Percakapan */
+.chat-main-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+}
+
+.chat-header-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #FFFFFF;
+}
+
+.chat-header-box h4 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.chat-header-box small {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* Area Scroll Pesan */
+.chat-messages-scroll-area {
+    flex-grow: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-empty-state {
+    margin: auto;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    background-color: #FFFFFF;
+    padding: 16px 24px;
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+}
+
+/* Gelembung Pesan (Bubble) */
+.chat-bubble {
+    max-width: 72%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    position: relative;
+}
+
+.chat-bubble p {
+    margin-bottom: 4px;
+    word-wrap: break-word;
+}
+
+.chat-time {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+/* Pesan Masuk (Kiri - Putih) */
+.bubble-incoming {
+    align-self: flex-start;
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+    border-bottom-left-radius: 4px;
+}
+
+.bubble-incoming .chat-time {
+    color: var(--text-muted);
+}
+
+/* Pesan Keluar (Kanan - Biru) */
+.bubble-outgoing {
+    align-self: flex-end;
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 2px 8px rgba(29, 117, 232, 0.2);
+}
+
+.bubble-outgoing .chat-time {
+    text-align: right;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Form Ketik Pesan di Bawah */
+.chat-input-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background-color: #FFFFFF;
+    border-top: 1px solid var(--border-color);
+}
+
+.chat-input-form .form-control {
+    flex-grow: 1;
+    padding: 11px 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-input);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    outline: none;
+}
+
+.chat-input-form .form-control:focus {
+    border-color: var(--primary-blue);
+    background-color: #FFFFFF;
+}
+
+.chat-input-form .btn-action-primary {
+    border: none;
+    cursor: pointer;
+    padding: 11px 22px;
+}
+
+@media (max-width: 900px) {
+    .chat-container-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .chat-messages-scroll-area {
+        min-height: 320px;
+    }
 }
