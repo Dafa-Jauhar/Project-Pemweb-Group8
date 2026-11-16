@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chat_connect` (
-  `ConnectID` int(11) NOT NULL auto_increment,
+  `ConnectID` int(11) NOT NULL,
   `ChatDID` int(11) DEFAULT NULL,
   `ChatPID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -40,7 +40,7 @@ CREATE TABLE `chat_connect` (
 --
 
 CREATE TABLE `doctors` (
-  `DoctorID` int(11) NOT NULL auto_increment,
+  `DoctorID` int(11) NOT NULL,
   `DoctorName` varchar(50) NOT NULL,
   `Speciality` varchar(20) DEFAULT NULL,
   `PhoneNumber` varchar(15) DEFAULT NULL,
@@ -81,7 +81,7 @@ INSERT INTO `doctors` (`DoctorID`, `DoctorName`, `Speciality`, `PhoneNumber`, `R
 --
 
 CREATE TABLE `doctor_chat` (
-  `ChatDID` int(11) NOT NULL auto_increment,
+  `ChatDID` int(11) NOT NULL,
   `UserID` int(11) DEFAULT NULL,
   `Chat` text DEFAULT NULL,
   `Time` datetime DEFAULT NULL
@@ -543,7 +543,7 @@ INSERT INTO `patients` (`PatientID`, `PatientName`, `NIK`, `BloodType`, `PhoneNu
 --
 
 CREATE TABLE `patient_chat` (
-  `ChatPID` int(11) NOT NULL auto_increment,
+  `ChatPID` int(11) NOT NULL,
   `UserID` int(11) DEFAULT NULL,
   `Chat` text DEFAULT NULL,
   `Time` datetime DEFAULT NULL
@@ -817,6 +817,10 @@ ALTER TABLE `patients`
 --
 ALTER TABLE `patient_chat`
   ADD CONSTRAINT `fk_chp` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `chat_connect` MODIFY `ConnectID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `doctor_chat`  MODIFY `ChatDID`   int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `patient_chat` MODIFY `ChatPID`   int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
