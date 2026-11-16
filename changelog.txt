@@ -5,6 +5,7 @@ Timestamp margin of error +- 2 minutes.
 ==============================================================================================================
 
 16 November 2026:
+- fixing error auto_increment (dafa) [23.14 WIB]
 - remove email from doctors and patients (dafa) [23.00 WIB]
 - add auto increment to chat sql (dafa)[22.38 WIB]
 - design login page (meisha)
