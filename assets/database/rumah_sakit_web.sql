@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2026 at 09:48 AM
+-- Generation Time: Nov 17, 2026 at 04:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,18 +24,6 @@ USE `rumah_sakit_web`;
 --
 -- Database: `rumah_sakit_web`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chat_connect`
---
-
-CREATE TABLE `chat_connect` (
-  `ConnectID` int(11) NOT NULL,
-  `ChatDID` int(11) DEFAULT NULL,
-  `ChatPID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,19 +65,6 @@ INSERT INTO `doctors` (`DoctorID`, `DoctorName`, `Speciality`, `PhoneNumber`, `R
 (18, 'dr. Alya Wijaya', 'THT', '081210000018', 'REG-2026-00018', 19),
 (19, 'dr. Bagas Lestari', 'Kulit', '081210000019', 'REG-2026-00019', 20),
 (20, 'dr. Dimas Hidayat', 'Saraf', '081210000020', 'REG-2026-00020', 21);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `doctor_chat`
---
-
-CREATE TABLE `doctor_chat` (
-  `ChatDID` int(11) NOT NULL,
-  `UserID` int(11) DEFAULT NULL,
-  `Chat` text DEFAULT NULL,
-  `Time` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -448,6 +423,28 @@ INSERT INTO `medical_prescriptions` (`PrescID`, `ExamID`, `DrugID`, `Quantity`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `MessageID` int(11) NOT NULL,
+  `SenderID` int(11) DEFAULT NULL,
+  `ReceiverID` int(11) DEFAULT NULL,
+  `Chat` text DEFAULT NULL,
+  `Time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`MessageID`, `SenderID`, `ReceiverID`, `Chat`, `Time`) VALUES
+(2, 28, 19, 'test', '2026-11-17 10:07:05'),
+(3, 19, 28, 'yey', '2026-11-17 10:09:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `patients`
 --
 
@@ -539,19 +536,6 @@ INSERT INTO `patients` (`PatientID`, `PatientName`, `NIK`, `BloodType`, `PhoneNu
 (68, 'Putri Maulana', '3471000000000068', 'AB+', '8221000068', 'Jl. Sehat No. 68, Yogyakarta', 'P', '1981-08-20', 89, NULL),
 (69, 'Raka Pratama', '3471000000000069', 'A-', '8221000069', 'Jl. Sehat No. 69, Yogyakarta', 'L', '1984-09-23', 90, NULL),
 (70, 'Sari Lestari', '3471000000000070', 'B-', '8221000070', 'Jl. Sehat No. 70, Yogyakarta', 'P', '1987-10-26', 91, 'Cefixime');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `patient_chat`
---
-
-CREATE TABLE `patient_chat` (
-  `ChatPID` int(11) NOT NULL,
-  `UserID` int(11) DEFAULT NULL,
-  `Chat` text DEFAULT NULL,
-  `Time` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -669,26 +653,11 @@ INSERT INTO `users` (`UserID`, `UserName`, `Email`, `Password`, `Role`) VALUES
 --
 
 --
--- Indexes for table `chat_connect`
---
-ALTER TABLE `chat_connect`
-  ADD PRIMARY KEY (`ConnectID`),
-  ADD KEY `fk_conn` (`ChatDID`),
-  ADD KEY `fk_connP` (`ChatPID`);
-
---
 -- Indexes for table `doctors`
 --
 ALTER TABLE `doctors`
   ADD PRIMARY KEY (`DoctorID`),
   ADD KEY `fk_usersD` (`UserID`);
-
---
--- Indexes for table `doctor_chat`
---
-ALTER TABLE `doctor_chat`
-  ADD PRIMARY KEY (`ChatDID`),
-  ADD KEY `fk_chd` (`UserID`);
 
 --
 -- Indexes for table `drugs`
@@ -713,19 +682,20 @@ ALTER TABLE `medical_prescriptions`
   ADD KEY `fk_drug` (`DrugID`);
 
 --
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`MessageID`),
+  ADD KEY `fk_chatS` (`SenderID`),
+  ADD KEY `fk_chatR` (`ReceiverID`);
+
+--
 -- Indexes for table `patients`
 --
 ALTER TABLE `patients`
   ADD PRIMARY KEY (`PatientID`),
   ADD UNIQUE KEY `PhoneNumber` (`PhoneNumber`),
   ADD KEY `fk_usersP` (`UserID`);
-
---
--- Indexes for table `patient_chat`
---
-ALTER TABLE `patient_chat`
-  ADD PRIMARY KEY (`ChatPID`),
-  ADD KEY `fk_chp` (`UserID`);
 
 --
 -- Indexes for table `users`
@@ -762,6 +732,12 @@ ALTER TABLE `medical_prescriptions`
   MODIFY `PrescID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
@@ -778,23 +754,10 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `chat_connect`
---
-ALTER TABLE `chat_connect`
-  ADD CONSTRAINT `fk_conn` FOREIGN KEY (`ChatDID`) REFERENCES `doctor_chat` (`ChatDID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_connP` FOREIGN KEY (`ChatPID`) REFERENCES `patient_chat` (`ChatPID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `doctors`
 --
 ALTER TABLE `doctors`
   ADD CONSTRAINT `fk_usersD` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `doctor_chat`
---
-ALTER TABLE `doctor_chat`
-  ADD CONSTRAINT `fk_chd` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `medical_examinations`
@@ -811,20 +774,17 @@ ALTER TABLE `medical_prescriptions`
   ADD CONSTRAINT `fk_exam` FOREIGN KEY (`ExamID`) REFERENCES `medical_examinations` (`ExamID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `fk_chatR` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_chatS` FOREIGN KEY (`SenderID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `patients`
 --
 ALTER TABLE `patients`
   ADD CONSTRAINT `fk_usersP` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `patient_chat`
---
-ALTER TABLE `patient_chat`
-  ADD CONSTRAINT `fk_chp` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `chat_connect` MODIFY `ConnectID` int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `doctor_chat`  MODIFY `ChatDID`   int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `patient_chat` MODIFY `ChatPID`   int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
