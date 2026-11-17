@@ -4,6 +4,9 @@ Change in project separated into 3 category (ADDED, UPDATE, DELETE).
 Timestamp margin of error +- 2 minutes.
 ==============================================================================================================
 
+17 November 2026:
+- fixing chat.php and database for it (dafa) [10.13 WIB]
+
 16 November 2026:
 - fixing error auto_increment (dafa) [23.14 WIB]
 - remove email from doctors and patients (dafa) [23.00 WIB]
